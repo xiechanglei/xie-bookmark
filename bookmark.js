@@ -135,7 +135,7 @@ export const addBookmark = async (url, title) => {
                     process.exit(0);
                 });
             } catch (e) {
-                console.log(`cannot get title from url ${chalk.green.bold(url)}, please provide a title manually. like: ${chalk.green.bold("bm add " + url + " your_title")}`);
+                console.log(`cannot get title from url ${chalk.green.bold(url)}, please provide a title manually. like: ${chalk.green.bold("lan add " + url + " your_title")}`);
                 process.exit(0);
             }
         });
@@ -208,12 +208,12 @@ export const exportBookmarks = (file) => {
         //转base64
         const data_base64_gzip = Buffer.from(data_gzip).toString("base64");
         if (file === undefined) {
-            console.log(`export data is below,you can use ${chalk.green.bold("bm import --data <data>")} to import bookmarks in other computer.`);
+            console.log(`export data is below,you can use ${chalk.green.bold("lan import --data <data>")} to import bookmarks in other computer.`);
             console.log(data_base64_gzip);
         } else {
             const file_path = resolve(file);
             writeFileSync(file, data_base64_gzip);
-            console.log(`Bookmarks have been exported to file: ${chalk.green.bold(file_path)}. you can use ${chalk.green.bold("bm import --file <file_name>")} to import bookmarks in other computer.`);
+            console.log(`Bookmarks have been exported to file: ${chalk.green.bold(file_path)}. you can use ${chalk.green.bold("lan import --file <file_name>")} to import bookmarks in other computer.`);
         }
     });
 }
@@ -273,7 +273,7 @@ export const importBookmarks = async ({data, file, url, force}) => {
  */
 export const mergeBookmarks = async ({data, file, url, force}) => {
     const data_json_obj = await _readDataFromProvider(data, file, url);
-    data_json_obj.filter((item) => bookmarks.find((bm) => bm.url === item.url) === undefined).forEach(item => addBookmark(item.url, item.title));
+    data_json_obj.filter((item) => bookmarks.find((lan) => lan.url === item.url) === undefined).forEach(item => addBookmark(item.url, item.title));
     writeBookmarksWithConfirm(force,
         "Bookmarks have been merged.",
         `Are you sure you want to merge bookmarks(total ${chalk.green.bold(bookmarks.length)})?`);

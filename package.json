@@ -1,6 +1,6 @@
 {
   "name": "xie-bookmark",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a web bookmark manager by cli",
   "keywords": [
     "bookmark",
@@ -10,7 +10,7 @@
   "type": "module",
   "main": "index.js",
   "bin": {
-    "bm": "index.js"
+    "lan": "index.js"
   },
   "license": "MIT",
   "files": [
