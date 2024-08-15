@@ -1,0 +1,25 @@
+{
+  "name": "xie-bookmark",
+  "version": "1.0.5",
+  "description": "a web bookmark manager by cli",
+  "keywords": [
+    "bookmark",
+    "cli"
+  ],
+  "author": "xiechanglei",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "bm": "index.js"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "version.js",
+    "bookmark.js"
+  ],
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0"
+  }
+}
