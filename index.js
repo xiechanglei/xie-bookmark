@@ -7,7 +7,7 @@ import {
     searchBookmark,
     renameBookmark,
     removeAllBookmark,
-    countBookmarks, getByUrl, exportBookmarks, importBookmarks, mergeBookmarks
+    countBookmarks, getByUrl, exportBookmarks, importBookmarks, mergeBookmarks,reBuildBookmarks
 } from "./bookmark.js";
 import {getVersion} from "./version.js";
 
@@ -72,5 +72,8 @@ program.command("merge")
 
 // 默认显示所有书签
 program.action(getAllBookmarks);
+
+// reload 重新给所有书签生成id
+program.command("reload").description("reload all bookmarks").action(reBuildBookmarks);
 
 program.parse()

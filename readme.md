@@ -94,8 +94,12 @@ lan merge --file bookmark.txt
 # 从指定的网络地址合并书签 merge bookmark from specified url
 lan merge --url https://raw.githubusercontent.com/xieyezi/xie-bookmark/master/bookmark.txt
 ```
+#### 11.重建索引 rebuild index
+```shell
+# 重建索引 rebuild index
+lan reload
+```
 
 todo list:
-
 1. --pass 对书签进行导出加密
 2. 导出到url

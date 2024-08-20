@@ -279,4 +279,13 @@ export const mergeBookmarks = async ({data, file, url, force}) => {
         `Are you sure you want to merge bookmarks(total ${chalk.green.bold(bookmarks.length)})?`);
 }
 
+export const reBuildBookmarks = () => {
+    bookmarks = bookmarks.map((item, index) => {
+        item.id = index + 1;
+        return item;
+    });
+    writeBookmarks();
+    console.log("All bookmarks have been reloaded.");
+}
+
 loadBookmarks();
