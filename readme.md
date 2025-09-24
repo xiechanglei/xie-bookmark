@@ -1,4 +1,5 @@
-一个简单的网页书签管理器 a simple web bookmark manager
+以女友名字（岚）命名的一个简单的网页书签管理器 
+a simple web bookmark manager
 
 #### 1.安装 install
 
@@ -15,7 +16,7 @@ lan add https://www.zhihu.com
 lan add https://www.zhihu.com  zhihu
 ```
 
-#### 3.查看书签 view bookmark
+#### 3.搜索书签 view bookmark
 
 ```shell
 # 查看所有书签 view all bookmarks
@@ -56,8 +57,14 @@ lan count
 
 ```shell
 # 查看指定url的书签，所以你也可以通过这个功能来保存一些非web的东西 view the bookmark of the specified url, so you can also use this feature to save some non-web things
-lan add book_name 'my love is gone'
-lan get book_name
+lan add http://www.google.com 'google'
+lan get http://www.google.com
+```
+利用这个特性，你可以把岚当作一个简单的基于命令行的参数存储工具
+With this feature, you can use lan as a simple command line based parameter storage tool
+```shell
+lan add my_token '123456'
+lan get my_token
 ```
 
 #### 8.导出书签 export bookmark

@@ -87,9 +87,10 @@ export const countBookmarks = () => {
 export const getByUrl = (url) => {
     const bookmark = bookmarks.find((item) => item.url === url);
     if (bookmark === undefined) {
-        console.log(`Bookmark with url ${chalk.green.bold(url)} not found.`);
+        // do nothing
+        // console.log(`Bookmark with url ${chalk.green.bold(url)} not found.`);
     } else {
-        console.log(`Bookmark with url ${chalk.green.bold(url)} found: ${chalk.green.bold(bookmark.title)}.`);
+        console.log(bookmark.title);
     }
 
 }

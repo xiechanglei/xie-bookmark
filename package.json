@@ -1,6 +1,7 @@
 {
-  "name": "xie-bookmark",
-  "version": "1.0.8",
+  "name": "@xie-work/bookmark",
+  "version": "1.1.1",
+  "private": "false",
   "description": "a web bookmark manager by cli",
   "keywords": [
     "bookmark",
