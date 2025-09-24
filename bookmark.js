@@ -1,10 +1,10 @@
 import {homedir} from 'os';
-import {resolve, dirname} from 'path';
-import {existsSync, writeFileSync, mkdirSync, readFileSync} from 'fs';
+import {dirname, resolve} from 'path';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'fs';
 import chalk from "chalk";
 import http from "http";
 import https from "https";
-import {gzip, gunzip} from "zlib";
+import {gunzip, gzip} from "zlib";
 // 获取用户的主目录
 const data_store = resolve(homedir(), ".xie_bookmark", ".bookmarks.json");
 
@@ -104,16 +104,6 @@ export const getAllBookmarks = () => {
 
 // 添加书签
 export const addBookmark = async (url, title) => {
-    // 去重复
-    const bookmark = bookmarks.find((item) => item.url === url);
-    if (bookmark !== undefined) {
-        console.log(`Bookmark with url ${chalk.green.bold(url)} already exists with id ${chalk.green.bold(bookmark.id)}.`);
-        return;
-    }
-    // 获取书签中的最大的id
-    const max_id = bookmarks.reduce((max, item) => {
-        return item.id > max ? item.id : max;
-    }, 0);
     if (title === undefined) {
         title = await new Promise((resolve, reject) => {
             const protocol = url.startsWith("https") ? https : http
@@ -141,24 +131,32 @@ export const addBookmark = async (url, title) => {
             }
         });
     }
-    bookmarks.push({id: max_id + 1, url, title});
+    let bookmark = bookmarks.find((item) => item.url === url);
+    if (bookmark === undefined) {
+        // 获取书签中的最大的id
+        const max_id = bookmarks.reduce((max, item) => {
+            return item.id > max ? item.id : max;
+        }, 0);
+        bookmark = {id: max_id + 1, url};
+        bookmarks.push(bookmark);
+    }
+    bookmark.title = title;
     console.log(`Bookmark ${chalk.green.bold(url)} has been added with title ${chalk.green.bold(title)}.`);
     writeBookmarks();
 }
 
 // 删除书签
-export const removeBookmark = (id, {force}) => {
-    // 判断id是否为数字
-    if (isNaN(id)) {
-        console.log(`Error: ${id} is not a number.`);
-        return
-    }
-    id = parseInt(id);
-    const bookmark = bookmarks.find((item) => item.id === id);
+export const removeBookmark = (condition, {force}) => {
+    // 先判断id是否是url
+    let bookmark = bookmarks.find((item) => item.url === condition);
     if (bookmark === undefined) {
-        console.log(`Bookmark with id ${id} not found.`);
+        condition = parseInt(condition);
+        bookmark = bookmarks.find((item) => item.id === parseInt(condition));
+    }
+    if (bookmark === undefined) {
+        console.log(`Error: no bookmark found with id or url ${chalk.green.bold(condition)}.`);
     } else {
-        bookmarks = bookmarks.filter((item) => item.id !== id);
+        bookmarks = bookmarks.filter((item) => item.id !== bookmark.id);
         writeBookmarksWithConfirm(force,
             `Bookmark with title ${chalk.green.bold(bookmark.title)} has been removed.`,
             `Are you sure you want to remove the bookmark：${chalk.green.bold(bookmark.title)} ?`);

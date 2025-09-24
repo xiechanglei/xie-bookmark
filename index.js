@@ -22,8 +22,8 @@ program.command('add book_url [book_title]')
     .action(addBookmark);
 
 // 删除书签
-program.command('remove id')
-    .description('remove a bookmark by id')
+program.command('remove id|url')
+    .description('remove a bookmark by id or url')
     .option("-f, --force", "force remove without confirmation", false)
     .action(removeBookmark);
 
@@ -32,11 +32,6 @@ program.command('empty')
     .description('remove all bookmarks')
     .option("-f, --force", "force remove without confirmation", false)
     .action(removeAllBookmark);
-
-// 修改书签名称
-program.command('rename id title')
-    .description('rename a bookmark by id and new title')
-    .action(renameBookmark);
 
 // 搜索书签
 program.command('search [keyword]')
